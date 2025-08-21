@@ -1,0 +1,19 @@
+
+ @font-face {
+    font-family: droid-arabic;
+    src: url("../fonts/droid_arabic.ttf");
+    font-weight: normal;
+    font-style: normal
+}
+/* @font-face {
+    font-family: 'droid-naskh';
+    src: url('../fonts/DroidNaskh-Regular.ttf');
+    font-weight: normal;
+    font-style: normal
+}
+@font-face {
+    font-family: "DroidKufi";
+    src: url('../fonts/DroidKufi-Regular.ttf');
+    font-weight: normal;
+    font-style: normal
+} */

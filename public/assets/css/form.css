@@ -1,0 +1,196 @@
+.panel-heading {
+    padding: 1px 15px;
+}
+
+.form form .error {
+    color: #f00;
+}
+
+.redborder {
+    border: 1px solid #b16159 !important;
+}
+
+form {
+    padding: 20px 5px;
+}
+
+.has-float-label {
+    position: relative;
+}
+
+.astric {
+    color: #ff0000;
+    opacity: 1;
+}
+
+.has-float-label>label .astric {
+    opacity: 1;
+}
+
+.has-float-label>label:not(.non-float) {
+    background: #fff;
+    position: absolute;
+    right: 10px;
+    cursor: text;
+    font-size: 13px;
+    opacity: 1;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    top: -0.55em;
+    z-index: 3;
+    line-height: 1;
+    padding: 0 1px;
+    color: #4f5f71;
+}
+
+.dark-mode .has-float-label>label:not(.non-float) {
+    background: #3a4c5d;
+    color: #bdb8b8;
+}
+
+.form-group.col-md-12.has-float-label>label:not(.non-float) {
+    right: 25px;
+}
+
+.has-float-label>label:not(.non-float)::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    background: white;
+    height: 2px;
+    top: 50%;
+    right: -0.2em;
+    z-index: -1;
+}
+
+.has-float-label>.form-control::-webkit-input-placeholder {
+    opacity: 1;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.has-float-label>.form-control:placeholder-shown:not(:focus)::-webkit-input-placeholder {
+    opacity: 0;
+}
+
+.has-float-label>.form-control:placeholder-shown:not(:focus)+label {
+    opacity: 1;
+    top: -0.5em;
+    color: #bdb8b8;
+}
+
+.has-float-label>.form-control:placeholder-shown:not(:focus)+label .astric {
+    opacity: 1;
+    color: #bdb8b8;
+}
+
+.col-md-6 {
+    padding-right: 0 !important;
+}
+
+.imgContainer img {
+    height: 40px;
+}
+
+.file_group.col-md-12,
+.custom-group.col-md-12 {
+    padding: 0 0 0 15px !important;
+}
+
+.permission input {
+    height: auto !important;
+    margin-left: 10px !important;
+}
+
+.form-group.submit {
+    margin-top: 15px;
+}
+
+.modal form {
+    padding: 5px 0;
+}
+
+.modal.form .modal-footer {
+    margin-top: 65px;
+}
+
+.language,
+.choice {
+    border: 1px solid #ccc;
+    padding: 25px 10px 10px 15px !important;
+    margin: 10px 0 20px 0;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 6px 19px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0 6px 19px -4px rgba(0, 0, 0, 0.75);
+    box-shadow: 0 6px 19px -4px rgba(0, 0, 0, 0.75);
+    border-top: 0;
+}
+
+th .non-float {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    display: inline-flex;
+    margin-bottom: auto;
+    text-align: center;
+    user-select: none;
+}
+
+th>.non-float input {
+    margin: 4px 8px 0px 8px !important;
+}
+
+span.astric {
+    color: #ff0000 !important;
+    opacity: 1 !important;
+}
+
+.col-md-12 form .col-md-12 {
+    padding-right: 0px !important;
+}
+
+.danger {
+    background-color: #d15b47 !important;
+    border-color: #d15b47;
+    color: #dee2e6;
+    vertical-align: middle;
+    padding: 1rem;
+    text-align: center;
+}
+
+.add_minus {
+    vertical-align: middle !important;
+}
+
+.dz-message {
+    padding: 0.6rem;
+    border: 1px dashed #dee2e6;
+    border-radius: 1rem;
+    color: #8898aa;
+    cursor: pointer;
+}
+
+.custom-select {
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem !important;
+}
+
+.custom-file {
+    position: relative !important;
+    display: inline-block !important;
+    width: 100% !important;
+    height: calc(2.25rem + 2px);
+    margin-bottom: 0;
+}
+
+.dz-message:hover {
+    border-color: #8898aa;
+    color: #525f7f
+}
+
+label:not(.form-check-label):not(.custom-file-label) {
+    font-weight: 700;
+}
+
+.invalid-feedback {
+    font-size: inherit !important;
+}

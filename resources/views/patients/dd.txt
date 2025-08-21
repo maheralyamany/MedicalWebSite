@@ -1,0 +1,147 @@
+@extends('layouts.master')
+@section('title', trans_title('patients'))
+@section('content')
+@section('breadcrumbs')
+    {!! Breadcrumbs::render('patients') !!}
+@stop
+<div class="page-content">
+    <div class="col-md-12 page-header" style="padding: 5px 15px;vertical-align: middle;">
+        <div class="row pt-3">
+            <div class="col-md-3">
+                <h1><i class="menu-icon fa fa-home"></i> {{ trans_title('patients') }}</h1>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ Form::select('patients', [], null, [
+                        'class' => 'select2 form-control',
+                        'placeholder' => trans('m.search_patient_hint'),
+                        'id' => 'search-patients',
+                    ]) }}
+                </div>
+            </div>
+            <div class="col-md-3 top_action">
+                <a class="btn btn-white btn-info btn-sm rounded-5" href="{{ route('patients.create') }}">
+                    <i class="fa fa-plus"></i> {{ trans_add('patients') }}
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="col-md-12">
+        <table id="dynamic-table" class="table table-striped table-bordered table-hover no-footer" width="100%">
+            <thead>
+                <tr>
+                    <th>{{ trans('m.patientname') }}</th>
+                    <th>{{ trans('m.mobile') }}</th>
+                    <th>{{ trans('m.gender') }}</th>
+                    <th>{{ trans('m.age') }}</th>
+                    <th>{{ trans_vname('city') }}</th>
+                    <th>{{ trans('m.address') }}</th>
+                    <th>{{ trans('m.operations') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (isset($patients) && $patients->count() > 0)
+                    @foreach ($patients as $patient)
+                        <tr>
+                            <td>{{ $patient->patientname }}</td>
+                            <td>{{ $patient->mobile }}</td>
+                            <td>{{ $patient->gender }}</td>
+                            <td>{{ $patient->age }}</td>
+                            <td>{{ $patient->city->name_ar }}</td>
+                            <td>{{ $patient->address }}</td>
+                            <td>
+                                @include('partials.actions.patients')
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+        </table>
+    </div>
+</div>
+@stop
+@section('scripts')
+<script>
+    $(function() {
+        dynamicDataTable('#dynamic-table', {
+            searching: false,
+            ordering: false,
+            oLanguage: {
+                sLengthMenu: '',
+            },
+        });
+        $('.dataTables_length').parents().closest('div.row').remove();
+        /*  $('#search-patients').select2({
+             placeholder: "{{ trans('m.search_patient_hint') }}",
+             allowClear: true,
+             language: {
+                 noResults: function() {
+                     return $(
+                         '<div dir="ltr"><i  class="fas fa-plus"></i> <span > Add New </span></div>'
+                     );
+                 }
+             },
+             dir: 'rtl',
+         }); */
+        $('#search-patients').select2({
+            placeholder: "{{ trans('m.search_patient_hint') }}",
+            allowClear: true,
+            dir: 'rtl',
+            ajax: {
+                url: "{{ route('patients.search') }}",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        queryStr: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function(data, params) {
+                    console.info('data processResults: ', data);
+                    console.info('params processResults: ', params);
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
+                    return {
+                        results: data,
+                        pagination: {
+                            more: (params.page * 30) < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function(markup) {
+               
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength: 1,
+            templateResult: formatRepo, // omitted for brevity, see the source of this page
+            templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+        });
+
+        function formatRepoSelection(repo) {
+            console.info('repo : ', repo);
+            return repo.patientname || repo.text;
+        }
+
+        function formatRepo(repo) {
+            console.info('repo formatRepo: ', repo);
+            if (repo.loading)
+                return repo.text;
+                var addrss = repo.city_name + ((repo.address) ? ' - ' + repo.address : '');
+            var photo = (repo.photo && repo.photo.length > 0) ? "{{ asset('+repo.photo+') }}" :
+                "{{ asset('images/img.png') }}";
+            var markup = "<div class='select2-result-repository clearfix timeline'>";
+             markup += `<div class="media"> <div class="media-left mr-1">  <span class="avatar avatar-md avatar-busy"> <img src="` + photo + `" alt="avatar"> </span> </div> <div class="media-body"> <h4 class="card-title"> <a href="#">` + repo.patientname + `</a> </h4> <p class="card-subtitle text-muted mb-0 pt-1"> <span class="font-small-3">` + addrss + `</span> </p> </div> </div>`;
+           
+            markup += "</div>";
+            return markup;
+        }
+    });
+</script>
+@stop
